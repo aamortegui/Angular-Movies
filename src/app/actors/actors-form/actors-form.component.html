@@ -1,0 +1,24 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="form.controls.name"/>
+        <mat-error>{{getErrorMessageForName()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>        
+        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="picker" [formControl]="form.controls.dateOfBirth"/>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-error>{{getErrorMessageForDateOfBirth()}}</mat-error>
+    </mat-form-field>
+
+    <app-input-img title="Actor's Picture" 
+    [imageURL]="model?.picture"
+    (selectedFile)="handleFileSelection($event)"></app-input-img>
+
+    <div class="buttons-container">
+        <button [disabled]="form.invalid" mat-flat-button type="submit">Save changes</button>
+        <a routerLink="/actors" mat-stroked-button>Cancel</a>
+    </div>
+</form>

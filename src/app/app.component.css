@@ -1,0 +1,17 @@
+h2{
+    color: red;
+}
+.movies-container-NgFor{
+    border: 1px solid black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.function-container{
+    border: 1px solid black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.container{
+    margin: 0 100px;
+    padding-bottom: 100px;
+}
