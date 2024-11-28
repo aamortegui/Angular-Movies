@@ -4,7 +4,7 @@
         [matAutocomplete]="auto"/>
         <mat-autocomplete #auto (optionSelected)="handleSelection($event)">
             @for (actor of actors; track $index) {
-                <mat-option [value]="actors">
+                <mat-option [value]="actor">
                     <img [src]="actor.picture"/>{{actor.name}}
                 </mat-option>
             }
