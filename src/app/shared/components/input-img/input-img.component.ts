@@ -27,7 +27,7 @@ export class InputImgComponent {
 
     if(input.files && input.files.length > 0){
       const file: File=input.files[0];
-      //Then allows execute whatever is inside after toBase64( it is a promise) is executed
+      //"Then" function allows execute whatever is inside after toBase64( it is a promise or async function) is executed
       toBase64(file).then((value:string) => this.imageBase64 = value)
       .catch(error => console.log(error));
 

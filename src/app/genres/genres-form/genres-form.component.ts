@@ -19,7 +19,7 @@ export class GenresFormComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
 
   form = this.formBuilder.group({
-    name:['', {validators:[Validators.required, firstLetterShouldBeUpperCase()]}] //This array represent the default value for the field in the html template
+    name:['', {validators:[Validators.required, firstLetterShouldBeUpperCase(), Validators.maxLength(50)]}] //This array represent the default value for the field in the html template
   });
   
   @Input()
@@ -43,7 +43,9 @@ export class GenresFormComponent implements OnInit {
     if(field.hasError('firstLetterShouldBeUpperCase')){
       return field.getError('firstLetterShouldBeUpperCase').message;
     }
-
+    if(field.hasError('maxlength')){
+      return `The field Name must not have more than ${field.getError('maxlength').requiredLength} characters`;
+    }
     return "";
   }
 

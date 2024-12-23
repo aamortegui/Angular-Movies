@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MovieCreationDto } from '../movies.models';
 import { MoviesFormComponent } from "../movies-form/movies-form.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/MultipleSelectorDTO';
+import { ActorAutoCompleteDto } from '../../actors/actors.models';
 
 @Component({
   selector: 'app-create-movie',
@@ -26,6 +27,8 @@ export class CreateMovieComponent {
   ]
 
   selectedTheaters: MultipleSelectorDTO[] = [];
+
+  selectedActors: ActorAutoCompleteDto[] = [];
   
   saveChanges(movie : MovieCreationDto){
     console.log('Creating the movie', movie);

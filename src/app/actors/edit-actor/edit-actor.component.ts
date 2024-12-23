@@ -1,23 +1,45 @@
-import { Component, Input, numberAttribute } from '@angular/core';
+import { Component, inject, Input, numberAttribute, OnInit } from '@angular/core';
 import { ActorCreationDTO, ActorDTO } from '../actors.models';
 import { ActorsFormComponent } from "../actors-form/actors-form.component";
 import moment from 'moment';
+import { ActorsService } from '../actors.service';
+import { LoadingComponent } from "../../shared/components/loading/loading.component";
+import { extractErrors } from '../../shared/functions/extractErrors';
+import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-actor',
   standalone: true,
-  imports: [ActorsFormComponent],
+  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent],
   templateUrl: './edit-actor.component.html',
   styleUrl: './edit-actor.component.css'
 })
-export class EditActorComponent {
+export class EditActorComponent implements OnInit {
+
   @Input({transform:numberAttribute})
   id!:number;
 
-  model: ActorDTO = {id:1, name:'Tom Hanks', dateOfBirth: new Date('1948-05-25'), picture:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Tom_Hanks_at_the_Elvis_Premiere_2022.jpg/220px-Tom_Hanks_at_the_Elvis_Premiere_2022.jpg'};
+  model?: ActorDTO;
+  actorsService = inject(ActorsService);
+  errors: string[] = [];
+  router = inject(Router);
+
+  ngOnInit(): void {
+    this.actorsService.getById(this.id).subscribe(actor => {
+      this.model = actor;
+    });
+  }
 
   saveChanges(actor:ActorCreationDTO){
-    actor.dateOfBirth = moment(actor.dateOfBirth).toDate();
-    console.log('editing the actor',actor);
+    this.actorsService.update(this.id, actor).subscribe({
+      next: () => {
+        this.router.navigate(['/actors']);
+      },
+      error: err => {
+        const errors = extractErrors(err);
+        this.errors = errors;
+      }
+    });
   }
 }

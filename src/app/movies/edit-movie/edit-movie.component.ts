@@ -1,8 +1,8 @@
 import { Component, numberAttribute, Input } from '@angular/core';
-import { transform } from 'typescript';
 import { MovieCreationDto, MovieDto } from '../movies.models';
 import { MoviesFormComponent } from "../movies-form/movies-form.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/MultipleSelectorDTO';
+import { ActorAutoCompleteDto } from '../../actors/actors.models';
 
 @Component({
   selector: 'app-edit-movie',
@@ -34,6 +34,10 @@ export class EditMovieComponent {
   
     selectedTheaters: MultipleSelectorDTO[] = [
       {key: 2, description:'Agora Mall'}
+    ];
+
+    selectedActors: ActorAutoCompleteDto[] = [
+      {id:2, name:'Tom Hanks', character:'Forrest Gump', picture:'https://upload.wikimedia.org/wikipedia/commons/e/e7/Tom_Hanks_at_the_Elvis_Premiere_2022.jpg'}
     ];
 
   saveChanges(movie: MovieCreationDto){
