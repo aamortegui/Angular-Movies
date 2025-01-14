@@ -7,39 +7,23 @@ import { LoadingComponent } from "../../shared/components/loading/loading.compon
 import { extractErrors } from '../../shared/functions/extractErrors';
 import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
 import { Router } from '@angular/router';
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { EditEntityComponent } from "../../shared/components/edit-entity/edit-entity.component";
 
 @Component({
   selector: 'app-edit-actor',
   standalone: true,
-  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent],
+  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent, EditEntityComponent],
   templateUrl: './edit-actor.component.html',
-  styleUrl: './edit-actor.component.css'
+  styleUrl: './edit-actor.component.css',
+  providers:[{
+    provide: CRUD_SERVICE_TOKEN, useClass: ActorsService
+  }]
 })
-export class EditActorComponent implements OnInit {
+export class EditActorComponent {
 
   @Input({transform:numberAttribute})
   id!:number;
 
-  model?: ActorDTO;
-  actorsService = inject(ActorsService);
-  errors: string[] = [];
-  router = inject(Router);
-
-  ngOnInit(): void {
-    this.actorsService.getById(this.id).subscribe(actor => {
-      this.model = actor;
-    });
-  }
-
-  saveChanges(actor:ActorCreationDTO){
-    this.actorsService.update(this.id, actor).subscribe({
-      next: () => {
-        this.router.navigate(['/actors']);
-      },
-      error: err => {
-        const errors = extractErrors(err);
-        this.errors = errors;
-      }
-    });
-  }
+  actorsForm = ActorsFormComponent;
 }

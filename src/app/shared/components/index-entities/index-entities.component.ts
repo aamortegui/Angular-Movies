@@ -61,7 +61,7 @@ export class IndexEntitiesComponent<TDTO, TCreationDTO> {
 
   firstLetterToUpperCase(value:string){
     if(!value) return value;
-    //name => Name
+    //EJ: name => Name
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 }

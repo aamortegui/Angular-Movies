@@ -1,21 +1,23 @@
 import { Component, Input, numberAttribute } from '@angular/core';
 import { TheaterCreationDto, TheaterDto } from '../theaters.models';
 import { TheatersFormComponent } from "../theaters-form/theaters-form.component";
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { TheatersService } from '../theaters.service';
+import { EditEntityComponent } from "../../shared/components/edit-entity/edit-entity.component";
 
 @Component({
   selector: 'app-edit-theater',
   standalone: true,
-  imports: [TheatersFormComponent],
+  imports: [TheatersFormComponent, EditEntityComponent],
   templateUrl: './edit-theater.component.html',
-  styleUrl: './edit-theater.component.css'
+  styleUrl: './edit-theater.component.css',
+  providers:[
+    {provide: CRUD_SERVICE_TOKEN, useClass: TheatersService}
+  ]
 })
 export class EditTheaterComponent {
   @Input({transform:numberAttribute})
   id!:number;
 
-  model: TheaterDto = {name:'Acropolis', id:1, latitude:4.602358977858119, longitude:-74.11484252993566}
-
-  saveChanges(theater: TheaterCreationDto){
-    console.log('editing the theater', theater);
-  }
+  theaterForm = TheatersFormComponent;
 }

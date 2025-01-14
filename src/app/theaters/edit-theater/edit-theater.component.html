@@ -1,2 +1,2 @@
-<h2>Edit Theater</h2>
-<app-theaters-form [model]="model" (postForm)="saveChanges($event)"></app-theaters-form>
+<app-edit-entity [formComponent]="theaterForm" title="Edit Theater"
+indexRoute="/theaters" [id]="id"></app-edit-entity>
