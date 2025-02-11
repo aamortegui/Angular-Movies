@@ -3,4 +3,6 @@ export interface MoviesSearchDto{
     genreId: number;
     upcomingReleases: boolean;
     inTheaters: boolean;
+    page: number;
+    recordsPerPage: number;
 }

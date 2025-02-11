@@ -1,5 +1,5 @@
 export interface Coordinate{
     text?:string;
-    latitud: number;
+    latitude: number;
     longitude: number;
 }

@@ -9,22 +9,37 @@
       <div class="movies-container">
         @for (movie of movies; track $index) {
           <div class="movie-container">
-            <a>
+            <a [routerLink]="['/movie', movie.id]">
               @if(movie.poster){
+                <!--In the next line I could use [ngSrc] (class 25) instead of [src] when we have several STATIC images (no dynamic like the current case) to load and I don't want to load 
+                all of them at the same time in order to improve the performance. Additionally, we can set a priority to load the first image
+                ([priority]="$index === 0") and when this condition is false the other images will work with lazy loading-->
               <img [src]="movie.poster" width="169" height="250"/>
             }@else {
               <img src="default.jpg" width="169" height="250"/>
             }
             </a>
             <p>
-              <a>{{movie.title}}</a>
+              <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
             </p>
-            <div>
-              <a mat-flat-button>
-                Edit
-              </a>
-              <button mat-flat-button type="button" color="warn">Delete</button>
-            </div>
+<!--Component of authorization-->
+            <app-authorized role="admin">
+              <ng-container authorized>
+                <div>
+                  <a mat-flat-button [routerLink]="['movies/edit', movie.id]">
+                    Edit
+                  </a>
+                  <button mat-flat-button type="button" color="warn"
+                  (confirm) = "delete(movie.id)"
+                  [swal]="{title: 'Confirmation', text: 'Are you sure you want to delete this movie?',
+                    showCancelButton: true
+                  }"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </ng-container>
+            </app-authorized>
           </div>
             }    
           </div>

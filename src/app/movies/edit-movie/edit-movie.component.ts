@@ -1,47 +1,70 @@
-import { Component, numberAttribute, Input } from '@angular/core';
+import { Component, numberAttribute, Input, OnInit, inject } from '@angular/core';
 import { MovieCreationDto, MovieDto } from '../movies.models';
 import { MoviesFormComponent } from "../movies-form/movies-form.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/MultipleSelectorDTO';
 import { ActorAutoCompleteDto } from '../../actors/actors.models';
+import { MoviesService } from '../movies.service';
+import { extractErrors } from '../../shared/functions/extractErrors';
+import { Router } from '@angular/router';
+import { LoadingComponent } from "../../shared/components/loading/loading.component";
 
 @Component({
   selector: 'app-edit-movie',
   standalone: true,
-  imports: [MoviesFormComponent],
+  imports: [MoviesFormComponent, LoadingComponent],
   templateUrl: './edit-movie.component.html',
   styleUrl: './edit-movie.component.css'
 })
-export class EditMovieComponent {
+export class EditMovieComponent implements OnInit {
 
   @Input({transform:numberAttribute})
   id!:number;
 
-  model: MovieDto = {id:1, title:'Spider-Man', releaseDate: new Date('2019-07-22'), 
-    trailer:'abcd', poster:'https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg'}
-
-    nonSelectedGenres: MultipleSelectorDTO[] =[
-      {key: 1, description:'Drama'},
-      {key: 2, description:'Action'},      
-    ]
+  model?: MovieDto;
+  nonSelectedGenres: MultipleSelectorDTO[] =[];  
+  selectedGenres: MultipleSelectorDTO[] = [];  
+  nonSelectedTheaters: MultipleSelectorDTO[] =[];  
+  selectedTheaters: MultipleSelectorDTO[] = [];
+  selectedActors: ActorAutoCompleteDto[] = [];
+  errors: string[] = [];
   
-    selectedGenres: MultipleSelectorDTO[] = [
-      {key: 3, description:'Comedy'}
-    ];  
+  movieService = inject(MoviesService);
+  router = inject(Router);
 
-    nonSelectedTheaters: MultipleSelectorDTO[] =[
-      {key: 1, description:'Acropolis'}      
-    ]
-  
-    selectedTheaters: MultipleSelectorDTO[] = [
-      {key: 2, description:'Agora Mall'}
-    ];
+  ngOnInit(): void {
+  this.movieService.putGet(this.id).subscribe(response => {
+    this.model = response.movie;
+    
+    this.selectedGenres = response.selectedGenres.map(genre => {
+      return <MultipleSelectorDTO>{key: genre.id, description: genre.name};
+    });
 
-    selectedActors: ActorAutoCompleteDto[] = [
-      {id:2, name:'Tom Hanks', character:'Forrest Gump', picture:'https://upload.wikimedia.org/wikipedia/commons/e/e7/Tom_Hanks_at_the_Elvis_Premiere_2022.jpg'}
-    ];
+    this.nonSelectedGenres = response.nonSelectedGenres.map(genre => {
+      return <MultipleSelectorDTO>{key: genre.id, description: genre.name};
+    });
+
+    this.selectedTheaters = response.selectedTheaters.map(theater => {
+      return <MultipleSelectorDTO>{key: theater.id, description: theater.name};
+    });
+
+    this.nonSelectedTheaters = response.nonSelectedTheaters.map(theater => {
+      return <MultipleSelectorDTO>{key: theater.id, description: theater.name};
+    });
+
+    this.selectedActors = response.actors;
+  });  
+  }  
 
   saveChanges(movie: MovieCreationDto){
-    console.log('editing the movie', movie);
+    this.movieService.update(this.id, movie).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: err =>{
+        const error = extractErrors(err);
+        this.errors = error;
+      }
+    })
   }
   
 }

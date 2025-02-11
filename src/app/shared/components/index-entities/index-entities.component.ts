@@ -55,6 +55,7 @@ export class IndexEntitiesComponent<TDTO, TCreationDTO> {
 
   delete(id:number){
     this.CRUDService.delete(id).subscribe(()=>{
+      this.pagination.page = 1;
       this.loadRecords();
     })
   }

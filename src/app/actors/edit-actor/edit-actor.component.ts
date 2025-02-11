@@ -13,7 +13,7 @@ import { EditEntityComponent } from "../../shared/components/edit-entity/edit-en
 @Component({
   selector: 'app-edit-actor',
   standalone: true,
-  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent, EditEntityComponent],
+  imports: [EditEntityComponent],
   templateUrl: './edit-actor.component.html',
   styleUrl: './edit-actor.component.css',
   providers:[{

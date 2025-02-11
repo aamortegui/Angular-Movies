@@ -9,11 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './rating.component.html',
   styleUrl: './rating.component.css'
 })
-export class RatingComponent {
-  //implements OnInit
-  /*ngOnInit(): void {
-    this.maxRatingArray = Array(this.maxRating).fill(0);
-  }*/
+export class RatingComponent implements OnInit{
 
   @Input ({required:true, transform:(value: number)=>Array(value).fill(0)})
   maxRating!:any[];
@@ -22,6 +18,11 @@ export class RatingComponent {
   selectedRating = 0;
 
   clickedRating = 0;  
+
+    //implements OnInit
+    ngOnInit(): void {
+      this.clickedRating = this.selectedRating;
+    }
 
   @Output()
   rated = new EventEmitter<number>();

@@ -32,7 +32,7 @@ export class ActorsFormComponent implements OnInit{
 
   @Output()
   postForm = new EventEmitter<ActorCreationDTO>();
-
+  /*in this part is used ngoninit to initialize because is necessary to load information from angular(template) and not from backend*/
   ngOnInit(): void {
     if(this.model !== undefined){
       this.form.patchValue(this.model);

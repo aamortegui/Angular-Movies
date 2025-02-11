@@ -8,7 +8,7 @@ import { CreateEntityComponent } from "../../shared/components/create-entity/cre
 @Component({
   selector: 'app-create-theater',
   standalone: true,
-  imports: [TheatersFormComponent, CreateEntityComponent],
+  imports: [CreateEntityComponent],
   templateUrl: './create-theater.component.html',
   styleUrl: './create-theater.component.css',
   providers:[

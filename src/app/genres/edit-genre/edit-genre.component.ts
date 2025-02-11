@@ -12,7 +12,7 @@ import { EditEntityComponent } from "../../shared/components/edit-entity/edit-en
 @Component({
   selector: 'app-edit-genre',
   standalone: true,
-  imports: [GenresFormComponent, LoadingComponent, DisplayErrorsComponent, EditEntityComponent],
+  imports: [EditEntityComponent],
   templateUrl: './edit-genre.component.html',
   styleUrl: './edit-genre.component.css',
   providers:[{

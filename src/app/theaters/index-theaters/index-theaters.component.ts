@@ -9,7 +9,7 @@ import { IndexEntitiesComponent } from "../../shared/components/index-entities/i
 @Component({
   selector: 'app-index-theaters',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, RouterLink, IndexEntitiesComponent],
+  imports: [MatButtonModule, MatIconModule, IndexEntitiesComponent],
   templateUrl: './index-theaters.component.html',
   styleUrl: './index-theaters.component.css',
   providers:[

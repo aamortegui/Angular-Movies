@@ -6,6 +6,8 @@ import { MoviesListComponent } from "./movies/movies-list/movies-list.component"
 import { MenuComponent } from "./shared/components/menu/menu.component";
 import { RatingComponent } from "./shared/components/rating/rating.component";
 
+//this component is the main component of the application, it is the first component that is loaded when the application starts
+
 //Interpolation: allows to show dinamically the current value from this "class" inside the component html "class"
 //pipe: allows to modify the values format of fields (dates, titles,etc.) via imports in the @component  
 //property binding: allows with javascript([]) sentences call and show images with its URLs and with NgOptimizedImage optimize dynamic how are load one static image like one icon
@@ -17,10 +19,13 @@ import { RatingComponent } from "./shared/components/rating/rating.component";
 //<router-outlet> allows whenever we have a component that we want to display from a route, it is going to be put here inside
 //Template driven form: their configuration primarily is in the component template (html).
 //Reactive form: their configuration is in the  component class (.ts)
+//Route guards: are interfaces which can tell the router whether or not it should allow navigation to a requested route
+
+//property standalone: true, allows to use the components without the need to import them in the module
 @Component({
-  selector: 'app-root',
+  selector: 'app-root',  
   standalone: true,
-  imports: [MoviesListComponent, MenuComponent, RatingComponent, RouterOutlet],
+  imports: [MenuComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

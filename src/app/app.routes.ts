@@ -12,25 +12,33 @@ import { EditGenreComponent } from './genres/edit-genre/edit-genre.component';
 import { EditActorComponent } from './actors/edit-actor/edit-actor.component';
 import { EditTheaterComponent } from './theaters/edit-theater/edit-theater.component';
 import { MoviesSearchComponent } from './movies/movies-search/movies-search.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
+import { isAdminGuard } from './shared/guards/is-admin.guard';
+import { LoginComponent } from './security/login/login.component';
+import { RegisterComponent } from './security/register/register.component';
+import { IndexUsersComponent } from './security/index-users/index-users.component';
 
 export const routes: Routes = [
     {path:'',component:LandingPageComponent},
-    {path:'genres',component:IndexGenresComponent},
-    {path:'genres/create',component:CreateGenresComponent},
-    {path:'genres/edit/:id', component:EditGenreComponent},
+    {path:'genres',component:IndexGenresComponent, canActivate: [isAdminGuard]},
+    {path:'genres/create',component:CreateGenresComponent, canActivate: [isAdminGuard]},
+    {path:'genres/edit/:id', component:EditGenreComponent, canActivate: [isAdminGuard]},
 
-    {path:'actors',component:IndexActorsComponent},
-    {path:'actors/create',component:CreateActorComponent},
-    {path:'actors/edit/:id', component:EditActorComponent},
+    {path:'actors',component:IndexActorsComponent, canActivate: [isAdminGuard]},
+    {path:'actors/create',component:CreateActorComponent, canActivate: [isAdminGuard]},
+    {path:'actors/edit/:id', component:EditActorComponent, canActivate: [isAdminGuard]},
 
-    {path:'theaters',component:IndexTheatersComponent},
-    {path:'theaters/create',component:CreateTheaterComponent},
-    {path:'theaters/edit/:id', component:EditTheaterComponent},
+    {path:'theaters',component:IndexTheatersComponent, canActivate: [isAdminGuard]},
+    {path:'theaters/create',component:CreateTheaterComponent, canActivate: [isAdminGuard]},
+    {path:'theaters/edit/:id', component:EditTheaterComponent, canActivate: [isAdminGuard]},
 
     {path:'movies/search',component:MoviesSearchComponent},    
-    {path:'movies/create',component:CreateMovieComponent},
-    {path:'movies/edit/:id', component:EditMovieComponent},
-
-    //This default route always must be at the end of the array
+    {path:'movies/create',component:CreateMovieComponent, canActivate: [isAdminGuard]},
+    {path:'movies/edit/:id', component:EditMovieComponent, canActivate: [isAdminGuard]},
+    {path:'movie/:id', component:MovieDetailsComponent},
+    {path:'login', component: LoginComponent},
+    {path:'register', component: RegisterComponent},
+    {path:'users', component:IndexUsersComponent},
+    //This default route if any case happen and always must be at the end of the array
     {path:'**', redirectTo:''}
 ];

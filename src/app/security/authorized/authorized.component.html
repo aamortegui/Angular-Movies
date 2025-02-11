@@ -1,0 +1,6 @@
+@if(isAuthorized()){
+    <!--ng-content is a directive that allows us to project content into the component from the outside (content projection)-->
+    <ng-content select = "[authorized]"></ng-content>
+}@else {
+    <ng-content select = "[notAuthorized]"></ng-content>
+}

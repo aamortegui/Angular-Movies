@@ -8,7 +8,7 @@ import { EditEntityComponent } from "../../shared/components/edit-entity/edit-en
 @Component({
   selector: 'app-edit-theater',
   standalone: true,
-  imports: [TheatersFormComponent, EditEntityComponent],
+  imports: [EditEntityComponent],
   templateUrl: './edit-theater.component.html',
   styleUrl: './edit-theater.component.css',
   providers:[

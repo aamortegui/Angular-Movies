@@ -36,7 +36,7 @@ export class TheatersFormComponent implements OnInit{
   ngOnInit(): void {
     if(this.model !== undefined){
       this.form.patchValue(this.model);
-      const coordinate : Coordinate ={latitud: this.model.latitude, longitude: this.model.longitude};
+      const coordinate : Coordinate ={latitude: this.model.latitude, longitude: this.model.longitude};
       this.form.controls.coordinate.setValue(coordinate);
       this.initialCoordinate.push(coordinate);
     }
@@ -56,7 +56,7 @@ export class TheatersFormComponent implements OnInit{
   }
   saveChanges(){
     const theater = this.form.value as TheaterCreationDto;
-    theater.latitude = this.form.controls.coordinate.value?.latitud as number;
+    theater.latitude = this.form.controls.coordinate.value?.latitude as number;
     theater.longitude = this.form.controls.coordinate.value?.longitude as number;
 
     this.postForm.emit(theater);

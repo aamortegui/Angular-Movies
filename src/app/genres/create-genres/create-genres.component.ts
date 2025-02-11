@@ -16,7 +16,7 @@ import { CreateEntityComponent } from "../../shared/components/create-entity/cre
 @Component({
   selector: 'app-create-genres',
   standalone: true,
-  imports: [GenresFormComponent, DisplayErrorsComponent, CreateEntityComponent],
+  imports: [CreateEntityComponent],
   templateUrl: './create-genres.component.html',
   styleUrl: './create-genres.component.css',
   providers:[{

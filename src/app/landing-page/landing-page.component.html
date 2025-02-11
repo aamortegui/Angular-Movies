@@ -1,8 +1,7 @@
-
   <h2>List of movies (Upcoming releases): Example using for</h2>
 
-  <app-movies-list [movies]="upcomingReleasesMovies"></app-movies-list>
+  <app-movies-list [movies]="upcomingReleasesMovies" (deleted)="handleDelete()"></app-movies-list>
 
   <h2>List of movies (In theaters)</h2>
 
-  <app-movies-list [movies]="inTheatersMovies"></app-movies-list>
+  <app-movies-list [movies]="inTheatersMovies" (deleted)="handleDelete()"></app-movies-list>
